@@ -46,7 +46,5 @@ const userSchema =
     }
   );
 
-module.exports = mongoose.model(
-  "User",
-  userSchema
-);
+//  This checks if the model exists before compiling it a second time
+module.exports = mongoose.models.User || mongoose.model("User", userSchema);
