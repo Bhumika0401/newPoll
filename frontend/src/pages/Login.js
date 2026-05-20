@@ -47,11 +47,16 @@ export default function Login() {
   };
 
   // ================= GOOGLE AUTHENTICATION (FIXED) =================
-  const googleLogin = () => {
-    // Dynamically uses your API configuration defaults to target the absolute backend location cleanly
-    const backendUrl = API.defaults.baseURL || "http://localhost:5000/api";
-    window.location.assign(`${backendUrl}/auth/google`);
-  };
+const googleLogin = () => {
+  // 💡 Pulls your live backend URL from your API configuration
+  const backendBase = API.defaults.baseURL || "https://your-backend-name.onrender.com/api";
+
+  // Clean up any accidental double slashes
+  const cleanBase = backendBase.endsWith("/") ? backendBase.slice(0, -1) : backendBase;
+
+  // 🚀 Forces the browser to go directly to your live Render backend for Google Auth
+  window.location.assign(`${cleanBase}/auth/google`);
+};
 
   const styles = {
     page: {
