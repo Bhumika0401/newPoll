@@ -7,8 +7,13 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // Styling UI state variables
+  const [focusedField, setFocusedField] = useState(null);
+  const [hoveredBtn, setHoveredBtn] = useState(null);
+
   const nav = useNavigate();
 
+  // ================= REGISTER HANDLER =================
   const register = async () => {
     if (!name || !email || !password) {
       alert("All fields are required");
@@ -34,171 +39,185 @@ export default function Signup() {
 
       alert(res.data.msg || "Signup successful 🚀");
       nav("/");
-
     } catch (err) {
       alert(err.response?.data?.msg || "Signup failed");
     }
   };
 
+  const styles = {
+    page: {
+      minHeight: "100vh",
+      background: "radial-gradient(circle at top, #0f172a 0%, #030712 80%)",
+      color: "#f3f4f6",
+      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "20px",
+      position: "relative",
+      overflow: "hidden",
+    },
+    blob: {
+      position: "absolute",
+      width: "500px",
+      height: "500px",
+      background: "radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent 70%)",
+      bottom: "-10%",
+      left: "-5%",
+      filter: "blur(90px)",
+      zIndex: 0,
+    },
+    blob2: {
+      position: "absolute",
+      width: "400px",
+      height: "400px",
+      background: "radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent 70%)",
+      top: "-5%",
+      right: "5%",
+      filter: "blur(90px)",
+      zIndex: 0,
+    },
+    card: {
+      background: "rgba(17, 24, 39, 0.5)",
+      backdropFilter: "blur(20px)",
+      WebkitBackdropFilter: "blur(20px)",
+      border: "1px solid rgba(255, 255, 255, 0.08)",
+      borderRadius: "24px",
+      width: "100%",
+      maxWidth: "420px",
+      padding: "40px",
+      boxShadow: "0 20px 50px rgba(0, 0, 0, 0.4)",
+      zIndex: 1,
+    },
+    title: {
+      fontSize: "28px",
+      fontWeight: "900",
+      letterSpacing: "-0.02em",
+      margin: "0 0 8px 0",
+      color: "#ffffff",
+      textAlign: "center",
+    },
+    subtitle: {
+      fontSize: "14px",
+      color: "#9ca3af",
+      margin: "0 0 28px 0",
+      textAlign: "center",
+    },
+    label: {
+      fontSize: "11px",
+      fontWeight: "700",
+      textTransform: "uppercase",
+      letterSpacing: "0.05em",
+      color: "#9ca3af",
+      display: "block",
+      marginBottom: "6px",
+    },
+    input: (isFocused) => ({
+      width: "100%",
+      padding: "14px 16px",
+      background: "rgba(255, 255, 255, 0.02)",
+      border: isFocused ? "1px solid #3b82f6" : "1px solid rgba(255, 255, 255, 0.08)",
+      borderRadius: "12px",
+      color: "#ffffff",
+      fontSize: "14px",
+      outline: "none",
+      boxSizing: "border-box",
+      transition: "all 0.2s ease",
+    }),
+    primaryBtn: (isHovered) => ({
+      width: "100%",
+      padding: "14px",
+      border: "none",
+      borderRadius: "12px",
+      background: "linear-gradient(to right, #3b82f6, #60a5fa)",
+      color: "white",
+      fontWeight: "700",
+      fontSize: "15px",
+      cursor: "pointer",
+      transform: isHovered ? "translateY(-1px)" : "none",
+      boxShadow: isHovered ? "0 4px 15px rgba(59,130,246,0.3)" : "none",
+      transition: "all 0.2s ease",
+      marginTop: "16px",
+    }),
+    footerText: {
+      textAlign: "center",
+      marginTop: "24px",
+      fontSize: "13px",
+      color: "#9ca3af",
+    },
+    link: {
+      color: "#60a5fa",
+      cursor: "pointer",
+      fontWeight: "600",
+      textDecoration: "none",
+      marginLeft: "5px",
+    }
+  };
+
   return (
-    <>
-      <style>{`
-        * {
-          margin:0;
-          padding:0;
-          box-sizing:border-box;
-          font-family: 'Inter', sans-serif;
-        }
+    <div style={styles.page}>
+      <div style={styles.blob}></div>
+      <div style={styles.blob2}></div>
 
-        .signup-page {
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          background: radial-gradient(circle at top, #0f172a, #020617);
-        }
+      <div style={styles.card}>
+        <h2 style={styles.title}>Create Account ✨</h2>
+        <p style={styles.subtitle}>Register your identity to deploy live ecosystem feeds.</p>
 
-        /* subtle blobs */
-        .blob {
-          position:absolute;
-          width:250px;
-          height:250px;
-          background:#3b82f6;
-          opacity:0.12;
-          border-radius:50%;
-          filter:blur(80px);
-          animation: float 10s infinite ease-in-out;
-        }
-
-        .blob:nth-child(1){ top:10%; left:15%; }
-        .blob:nth-child(2){ bottom:10%; right:15%; }
-
-        @keyframes float {
-          0%,100% { transform: translateY(0); }
-          50% { transform: translateY(-25px); }
-        }
-
-        .signup-card {
-          width:360px;
-          padding:32px;
-          border-radius:18px;
-
-          background: rgba(255,255,255,0.04); /* more transparent */
-          border:1px solid rgba(255,255,255,0.1);
-
-          backdrop-filter: blur(16px);
-          box-shadow:0 20px 40px rgba(0,0,0,0.5);
-
-          text-align:center;
-          color:white;
-          z-index:2;
-        }
-
-        .signup-card h2 {
-          margin-bottom:20px;
-          font-size:24px;
-        }
-
-        .signup-card input {
-          width:100%;
-          padding:12px;
-          margin:8px 0;
-
-          border-radius:10px;
-          border:1px solid transparent;
-
-          background:rgba(255,255,255,0.08);
-          color:white;
-
-          transition:0.25s;
-        }
-
-        .signup-card input:focus {
-          border:1px solid #3b82f6;
-          box-shadow:0 0 8px #3b82f6;
-        }
-
-        /* smaller cleaner button */
-        .signup-btn {
-          width:100%;
-          padding:11px;
-          margin-top:12px;
-
-          border:none;
-          border-radius:10px;
-
-          background: linear-gradient(135deg,#3b82f6,#2563eb);
-          color:white;
-
-          cursor:pointer;
-          transition:0.25s;
-        }
-
-        .signup-btn:hover {
-          transform: scale(1.03);
-          box-shadow:0 0 10px #3b82f6;
-        }
-
-        /* link style (natural feel) */
-        .bottom-text {
-          margin-top:14px;
-          font-size:13px;
-          color:#94a3b8;
-        }
-
-        .bottom-text span {
-          color:#60a5fa;
-          cursor:pointer;
-        }
-
-        .bottom-text span:hover {
-          text-decoration:underline;
-        }
-
-      `}</style>
-
-      <div className="signup-page">
-
-        <div className="blob"></div>
-        <div className="blob"></div>
-
-        <div className="signup-card">
-
-          <h2>Create Account ✨</h2>
-
+        <div style={{ marginBottom: "16px" }}>
+          <label style={styles.label}>Full Structural Name</label>
           <input
             type="text"
-            placeholder="Full Name"
+            style={styles.input(focusedField === "name")}
+            onFocus={() => setFocusedField("name")}
+            onBlur={() => setFocusedField(null)}
+            placeholder="John Doe"
             value={name}
-            onChange={(e)=>setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
-
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
-          />
-
-          <button className="signup-btn" onClick={register}>
-            Create Account
-          </button>
-
-          <div className="bottom-text">
-            Already have an account?{" "}
-            <span onClick={()=>nav("/")}>Login</span>
-          </div>
-
         </div>
 
+        <div style={{ marginBottom: "16px" }}>
+          <label style={styles.label}>Email address</label>
+          <input
+            type="email"
+            style={styles.input(focusedField === "email")}
+            onFocus={() => setFocusedField("email")}
+            onBlur={() => setFocusedField(null)}
+            placeholder="name@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div style={{ marginBottom: "20px" }}>
+          <label style={styles.label}>Security Password</label>
+          <input
+            type="password"
+            style={styles.input(focusedField === "password")}
+            onFocus={() => setFocusedField("password")}
+            onBlur={() => setFocusedField(null)}
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <button
+          style={styles.primaryBtn(hoveredBtn === "register")}
+          onMouseEnter={() => setHoveredBtn("register")}
+          onMouseLeave={() => setHoveredBtn(null)}
+          onClick={register}
+        >
+          Initialize Account 🚀
+        </button>
+
+        <p style={styles.footerText}>
+          Already have an account?
+          <span style={styles.link} onClick={() => nav("/")}>
+            Log In
+          </span>
+        </p>
       </div>
-    </>
+    </div>
   );
 }
