@@ -25,7 +25,7 @@ const {
 
 const CLIENT_URL =
   process.env.CLIENT_URL ||
-  "http://localhost:3000";
+  "https://new-poll-rouge.vercel.app";
 
 
 // =====================================
@@ -100,9 +100,9 @@ router.get(
       res.cookie("token", token, {
         httpOnly: true,
 
-        secure: false, // true in production
+        secure: true, // true in production
 
-        sameSite: "lax",
+        sameSite: "none",
 
         maxAge:
           7 *
