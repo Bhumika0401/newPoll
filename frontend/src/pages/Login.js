@@ -49,7 +49,7 @@ export default function Login() {
   // ================= GOOGLE AUTHENTICATION (FIXED) =================
 const googleLogin = () => {
   // 💡 Pulls your live backend URL from your API configuration
-  const backendBase = API.defaults.baseURL || "https://your-backend-name.onrender.com/auth/google";
+  const backendBase = API.defaults.baseURL || "https://newpoll-8ju1.onrender.com/api/auth/google";
 
   // Clean up any accidental double slashes
   const cleanBase = backendBase.endsWith("/") ? backendBase.slice(0, -1) : backendBase;
