@@ -50,13 +50,17 @@ router.post("/logout", logout);
 // =====================================
 
 // Start Google Login
-router.get(
-  "/google",
+// router.get(
+//   "/google",
 
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-  })
-);
+//   passport.authenticate("google", {
+//     scope: ["profile", "email"],
+//   })
+// );
+router.get('/google', passport.authenticate('google', { 
+  scope: ['profile', 'email'],
+  prompt: 'select_account' // 🚀 This forces Google to show the ID selection page!
+}));
 
 
 // Google Callback
