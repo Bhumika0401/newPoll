@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const API = axios.create({
-  baseURL: "https://your-backend.onrender.com/api",
+  baseURL: "https://newpoll-8ju1.onrender.com",
   withCredentials: true,
 });
 
