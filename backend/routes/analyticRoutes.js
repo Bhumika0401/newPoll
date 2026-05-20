@@ -120,7 +120,7 @@ const router = require("express").Router();
 
 const Poll = require("../models/pollModel");
 const Survey = require("../models/surveyModel");
-const User = require("../models/User");
+const User = require("../models/user");
 const Response = require("../models/responseModel");
 
 // auth middleware (if needed)

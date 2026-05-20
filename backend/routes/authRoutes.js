@@ -8,7 +8,7 @@ const auth = require("../middleware/authMiddleware");
 
 const upload = require("../middleware/upload");
 
-const User = require("../models/User");
+const User = require("../models/user");
 
 const {
   register,
