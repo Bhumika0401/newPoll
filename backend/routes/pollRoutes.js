@@ -15,7 +15,8 @@ const Poll = require("../models/pollModel");
 // ================= CREATE POLL =================
 router.post("/", auth, createPoll);
 // ================= VOTE POLL =================
-router.post("/vote", auth, votePoll);
+// router.post("/vote", auth, votePoll);
+router.post("/:id/vote", auth, votePoll);
 
 // ================= GET ALL POLLS =================
 router.get("/", auth, getPolls);
